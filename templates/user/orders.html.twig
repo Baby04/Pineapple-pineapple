@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Your Orders
+{% endblock %}
+
+{% block body %}
+	<div class="container fluid">
+		<br>
+		<br>
+		<br>
+		{% include "inc/logo.html.twig" %}
+		<h1 class="text-muted font-weight-bold text-center">My orders</h1>
+		<div class="alert alert-info mt-5 text-center">
+			Here are your orders
+		</div>
+		{% if user.order | length > 0 %}
+		{% for order in app.user.order %}
+			<div class="row mt-5">
+				{% include "inc/pi.html.twig" %}
+				<div class="col-8">
+					<h4 class="font-weight-bold">{{ order.prod.productname}}</h4>
+					<div class="col-4">
+						{% set comment = order.prod.commentFromAuthor(app.user) %}
+						{% if comment is not null %}
+							<strong>Rating :
+							</strong>
+							{% include "inc/rating.html.twig" with {'rating':comment.rating} %}
+						{% else %}
+							Make your opinion known.
+							<a href="{{ path('order_checkout', {'id': order.id })}}#comment" class="btn btn-link">Rate this product</a>
+						{% endif %}
+					</div>
+
+					<p>
+						<strong>order (N°{{order.id}})</strong>
+						<br>
+						<h3 class="text-muted">Ordered at:
+							{{ order.orderedat| date ('d/m/y')}}
+							and deliverded on:
+							{{ order.orderedat| date ('d/m/y')}}</h3>
+						<a href="{{ path('order_checkout', {'id': order.id}) }}" class="btn btn-outline-info">More info</a>
+					</p>
+
+				</div>
+			</div><hr>
+		{% endfor %}
+
+		{% else %}
+			<div class="alert alert-warning">
+				<p>
+					<strong>{{user.firstname}}
+						{{user.lastname}}</strong>
+					has not yet place an order</p>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{product.productname}}
+{% endblock %}
+
+{% block body %}
+
+	<br>
+	<br>
+	<br>
+	<div>
+		<img class="d-block mx-auto mb-4" src="{{ asset ('image/P logo.png')}}" alt="" width="150" height="150">
+	</div>
+	<hr>
+
+	<div class="container mb-4">
+
+		<div class="row justify-content-around">
+
+			<div class="col-4">
+				<div class="card" style="width: 18rem;">
+					<img src="{{ asset('uploads/brochures/') ~ product.coverImage }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">{{product.productname}}</h5>
+						<p class="card-text">{{product.description}}</p>
+
+						<hr>
+
+						<a href="{{ path('order_product', {'id': product.id}) }}" class="btn btn-primary text-right">Order</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="alert alert-info col-4">
+
+				{% if product.comments|length > 0 %}
+					<h3>Our customers opinion</h3>
+					<hr>
+					<div class="alert alert-dismissible alert-secondary">
+						<h4 class="alert-heading text-center">
+							<div class="row align-items-center">
+								<div class="col">
+									<p>
+										<small>Global remark by our customers</small>
+									</p>
+								</div>
+								<div class="col">{% include 'inc/rating.html.twig' with {'rating': product.avgRatings} %}
+									<hr>
+									<h6 class="text-muted">(calculated based on)
+										{{product.comments|length}}
+										opinions !</h6>
+
+								</div>
+							</div>
+						</h4>
+					</div>
+					<hr>
+					{% for comment in product.comments %}
+						<strong>{{ comment.author.lastName }}</strong>
+						{# creating a variable #}
+						{#{% set rating = comment.rating %}#}
+						{% include 'inc/rating.html.twig' with {'rating': comment.rating} %}
+						<hr>
+					{% endfor %}
+				{% else %}
+					No rating
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

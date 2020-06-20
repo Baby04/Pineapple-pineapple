@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta http-equiv="X-UA-Compatible" content="ie=edge">
+			<title>
+				{% block title %}
+					<a href="/" class="navbar-brand"><img src="{{ asset ('image/logo.png')}}" width="50" height="50" class="d-inline-block align-top" alt="">Welcome!</a>
+
+				{% endblock %}
+				Pineapple
+			</title>
+
+			<link rel="icon" href="{{ asset ('image/logo.png')}}" type="image/x-icon">
+
+
+			<link rel="stylesheet" href="{{ asset('Css/bootstrap.min.css') }}">
+
+			<link
+			rel="stylesheet" href="{{ asset('cssa/all.css')}}">
+
+			<!-- <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css"> -->
+			{% block stylesheets %}{% endblock %}
+
+		{% endblock %}
+	</head>
+
+	<body>
+		<br>
+		<div id="navbar">
+			{{ include('inc/navbar.html.twig') }}
+
+
+		</div>
+
+
+		{% block body %}{% endblock %}
+
+
+		<div id="footer">
+			{{ include('inc/footer.html.twig') }}
+		</div>
+
+		{% block javascripts %}
+
+			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+			<script src="{{ asset('js/jquery.min.js') }}"></script>
+
+			<script src="{{ asset('js/popper.min.js')}}"></script>
+
+			<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+			{{encore_entry_script_tags ('app')}}
+		{% endblock %}
+	</body>
+</html>

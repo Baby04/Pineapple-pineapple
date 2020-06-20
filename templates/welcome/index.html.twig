@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our Products
+{% endblock %}
+{% block stylesheets %}
+	<style>
+		body {
+			background: url("{{ asset('image/43.jpg') }}") no-repeat center center fixed;
+			background-size: 100% 100%;
+			background-position: 0 0;
+
+		}
+		.container {
+			max-width: 2000px
+		}
+	</style>
+
+{% endblock %}
+
+{% block body %}
+	<br>
+	<br>
+	<br>
+	<div class="container mt-5">
+		<div class="container-fluid text-muted">
+
+			<h1 class="text-center font-weight-bold">
+				Welcome to our web store
+			</h1>
+		</div>
+
+		<br><br>
+
+		<div class="row">
+			{% for product in products %}
+				<div class="col-md-3">
+					<div class="card bg-light mb-3">
+						<div class="card-header text-center">
+
+							{{product.quantity}}
+							Best Pineapples,
+							<strong>{{product.price}}FCFA EACH</strong><BR>
+							{% if product.comments|length > 0 %}
+								{% include 'inc/rating.html.twig' with {'rating': product.avgRatings} %}
+							{% else %}
+								<br>
+								<small>
+									<h6 class="text-muted">Not yet rated</h6>
+								</small>
+							{% endif %}
+						</div>
+						<a href="{{ path('product_det', {'id': product.id })}}">
+							<img src="{{ asset('uploads/brochures/') ~ product.coverImage }}" alt="Fruit Image" style="height: 200px; width: 100%; display: block">
+
+						</a>
+						<div class="card-body">
+							<h4 class="card-title">{{product.productname}}</h4>
+							{{product.description}}
+							<br>
+							<a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-secondary">
+								<i class="fas fa-shopping-cart"></i>
+								Add to cart</a>
+						</div>
+
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

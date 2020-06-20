@@ -1,0 +1,61 @@
+{% extends 'admin/adminbase.html.twig' %}
+
+{% block title %}Order administration
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid my-5">
+		<h1 class="text-center text-muted">Order Administration</h1>
+		<br>
+		{% for message in app.flashes('success') %}
+			<div class="alerr alert-success">{{message}}</div>
+		{% endfor %}
+		{% for message in app.flashes('info') %}
+			<div class="alerr alert-info text-center font-weight-bold">{{message}}</div>
+		{% endfor %}
+
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="text-center">OrderId</th>
+					<th class="text-center">Product</th>
+					<th class="text-center">Date ordered</th>
+					<th class="text-center">Owner</th>
+					<th class="text-center">Date shipped</th>
+					<th class="text-center">Action</th>
+					<th class="text-center"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for orders in order %}
+
+					<tr>
+						<td class="text-center">
+							<span class="badge badge-secondary">{{orders.Id}}</span>
+						</td>
+						<td class="text-center">{{orders.prod.productname}}</td>
+						<td class="text-center">{{orders.orderdate | date('d/m/y H:i')}}</td>
+						<td class="text-center">{{orders.fullname}}</td>
+						<td class="text-center">{{orders.orderedat| date('d/m/y H:i')}}</td>
+						<td class="text-center">
+							<a href="{{ path('order_edit', {'id': orders.id})}}">
+								<button class="btn btn-outline-warning">
+									<i class="fas fa-edit">Edit</i>
+								</button>
+							</a>
+							<a href="{{ path('order_delete', {'id':orders.id})}}">
+								<button class="btn btn-outline-warning">
+									<i class="fas fa-trash">Delete</i>
+
+								</button>
+							</a>
+
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "admin/adminbase.html.twig" %}
+
+{% block title %}
+	Edit comment N°
+	{{ comment.id}}
+{% endblock %}
+
+{% block body %}
+	<div class="container mb-3">
+		<br>
+		<br>
+		<h1 class="my-5 text-center text-muted">Edit comment n°
+			{{comment.id}}</h1>
+		{% for message in app.flashes('success') %}
+			<div class="alerr alert-success">{{message}}</div>
+		{% endfor %}
+		<br>
+		<div class="alert alert-info">
+			<strong>Product rated :
+			</strong>
+			{{comment.product.productname}}<br>
+			<strong>Rated by :
+			</strong>
+			{{comment.author.lastname}}<br>
+			<strong>Date rated :
+			</strong>
+			{{comment.createdat}}{{"yesterday" |date("d-m-y H:i")}}
+
+		</div>
+
+		{{ form_start(form)}}
+
+		{{ form_widget(form)}}
+
+		<button type="submit" class="btn btn-outline-success">
+			<i class="fas fa-check">
+				Save editted comment
+			</i>
+		</button>
+		{{ form_end(form)}}
+
+	</div>
+{% endblock %}

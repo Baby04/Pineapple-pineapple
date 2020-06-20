@@ -1,0 +1,75 @@
+{% extends 'admin/adminbase.html.twig' %}
+
+{% block title %}Comment Admin
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<h1 class="my-5 text-center text-muted">Rating Administration ✅</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alerr alert-success">{{message}}</div>
+		{% endfor %}
+
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="text-center">Id</th>
+					<th class="text-center">Date</th>
+					<th class="text-center">AuthorId</th>
+					<th class="text-center">Author</th>
+					<th class="text-center">Rating</th>
+					<th class="text-center">Average Ratings</th>
+					<th class="text-center">Product</th>
+					<th class="text-center">Action</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for comments in comment %}
+					<tr>
+						<td class="text-center">
+							<span class="badge badge-success rounded">
+								{{comments.id}}
+							</span>
+						</td>
+						<td class="text-center">{{comments.createdat}}
+							{{"yesterday" |date("d-m-y H:i") }}</td>
+						<td class="text-center">
+							<span class="badge badge-success rounded">
+								{{comments.author.id}}
+							</span>
+						</td>
+						<td class="text-center">{{comments.author.firstname}}
+							{{comments.author.lastname}}</td>
+
+						<td class="text-center">
+							<span class="badge badge-success">{{comments.rating}}</span>
+
+						</td>
+						<td class="text-center">
+							<span class="badge badge-success">{{comments.product.AvgRatings |number_format(1, '.', ',')}}</span>
+
+						</td>
+						<td class="text-center">{{comments.product.productname}}</td>
+						<td class="text-center">
+							<a href="{{ path('comment_edit', {'id': comments.id})}}" class="btn btn-outline-warning">
+
+								<i class="fas fa-edit">
+									Edit</i>
+							</a>
+							<a href="{{ path('comment_delete', {'id': comments.id})}}" class="btn btn-outline-warning">
+								<i class="fas fa-trash">
+									Delete</i>
+							</a>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

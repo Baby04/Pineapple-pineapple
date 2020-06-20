@@ -1,0 +1,26 @@
+{% extends "admin/adminbase.html.twig" %}
+
+{% block title %}
+	Order administration
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid mb-3">
+		<br>
+		<br>
+		<br>
+		<h1 class="my-5 text-center text-muted"></h1>
+
+		{{ form_start(form)}}
+
+		{{ form_widget(form)}}
+
+		<button type="submit" class="btn btn-outline-primary">
+			<i class="fas fa-check"></i>
+			Confirm edit
+		</button>
+
+		{{ form_end(form)}}
+
+	</div>
+{% endblock %}

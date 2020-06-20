@@ -1,0 +1,18 @@
+{% extends 'admin/adminbase.html.twig' %}
+
+{% block title %}New Product
+{% endblock %}
+
+{% block body %}
+
+	<div class="container bg-light mt-5" style="max-width: 2000px">
+		<h1 class="font-weight-bold">Create new Product</h1>
+
+		{{ include('product/_form.html.twig') }}
+
+		<a href="{{ path('product_index') }}">
+			<button class=" btn btn-outline-primary">back to list</button>
+		</a>
+
+	</div>
+{% endblock %}

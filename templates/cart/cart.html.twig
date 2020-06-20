@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart
+{% endblock %}
+
+{% block body %}
+
+	{#%set item = item.quantity %#}
+	{#% set tot = item.product.price * item.quantity  %#}
+
+	<br>
+	<br>
+		<div class="bg-light text-center p-3 "> <img class="d-block mx-auto mb-4" src="{{ asset ('image/P logo.png')}}" alt="" width="150" height="150">
+
+
+		<h1>
+			<i class="fas fa-shopping-cart">Shopping Cart</i>
+			<p>Glad your visited Pineapple Pineapple</p>
+		</h1>
+	</div>
+
+	<div class="row bg-light">
+		{% if items | length > 0 %}
+
+
+			<div class="col-sm-7 col-lg-9 ml-0">
+				<table class="table">
+					<caption class="ml-8 text-center mb-8 bg-secondary">
+						<p class="text-white">Products in your shopping cart</p>
+					</caption>
+					<thead class="thead-light">
+						<tr>
+							<th class="col-3">Image</th>
+							<th class="col-3">Product</th>
+							<th class="col-3">Price</th>
+							<th class="col-3">Quantity</th>
+							<th class="col-3">Total</th>
+							<th class="col-3">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+							<tr>
+								<td class="w-25">
+									<img src="{{ asset('uploads/brochures/') ~ item.product.coverImage}}" class="img-thumbnail" alt="...">
+
+								</td>
+
+								<td>
+									<srong>
+										<h3 class="text-primary">
+											{{ item.product.productname }}
+										</h3>
+									</srong>
+									<br>
+									<br>
+									<h5 class="text-success">
+										{{ item.product.description}}
+									</h5>
+								</td>
+								<td>
+									{{ item.product.price |number_format(0,',')}}
+									FCFA</td>
+								<td>
+									{#{ item.quantity }#}
+									<form
+										action="{{ path('cart_add', {'id': item.product.id}) }}" method="post">
+										{##}
+										<select name="quantity" id="span4" onchange="this.form.submit();">
+											{% for item in 1..20 %}
+												<option value="{{ item }}" {% if item == items %} selected="selected" {% endif %}>{{ item }}</option>
+											{% endfor %}
+										</select>
+									</form>
+								</td>
+								<td>
+									{{ item.product.price * item.quantity  |number_format(2, '.', ',') }}
+
+									FCFA</td>
+
+								<td>
+									<a href="{{ path('cart_remove', {'id': item.product.id}) }}" class="btn btn-outline-warning btn-sm">
+										<i class="fas fa-trash">
+											Delete</i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+
+					<tfoot>
+						<tr>
+							<td colspan="3" class="text-right font-weight-bold">Total :
+							</td>
+							<td class="text-warning font-weight-bold">
+								{{ total |number_format(2, '.', ',') }}
+								FCFA
+							</td>
+						</tr>
+					</tfoot>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-sm-3">
+			<div class="card border-secondary bg-waring disable mb-3" style="max-width: 19rem;">
+				<div class="card-header center">
+					<i class="fas fa-shopping-cart">summary</i>
+				</div>
+				<div class="card-body">
+					<h5 class=" font-weight-bold">subtotal({% set cart = app.session.get('cart') %}
+
+						{{ cart |length}}
+						items):
+						{{ total |number_format(2, '.', ',') }}F</h5>
+					<a href="{{ path('cart') }}">
+
+
+						<button class="btn btn-secondary btn-lg btn-block">
+							<strong>Proceed to check out</strong>
+						</button>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class=""></div>
+	{% else %}
+		<div class="text-center alert alert-dismissible alert-warning  mx-auto mb-5">
+			<p>
+				<i class="far fa-surprise text-dark fa-3x"></i><br><h4 class="font-weight-bold text-dark">Surprise your shopping cart empty !!!</h4>
+			</p>
+		</div>
+	{% endif %}
+</div>{% endblock %}

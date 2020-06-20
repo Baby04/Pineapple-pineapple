@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookingController!
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+
+{% block body %}
+	<br>
+	<br>
+	<div class="row">
+		<div class="col">{{ form_row(form.datebooked)}}</div>
+		<div class="col">{{ form_row(form.deliverydate)}}</div>
+	</div>
+{% endblock %}

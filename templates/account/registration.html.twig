@@ -1,0 +1,28 @@
+{% extends'base.html.twig'%}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	Sign Up
+{% endblock %}
+
+{% block body %}
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container mb-3">
+		<img class="d-block mx-auto mb-4" src="{{ asset ('image/P logo.png')}}" alt="" width="150" height="150">
+
+		<h1 class="text-center text-muted">Create a Pineapple Pineapple account</h1>
+		<br>
+
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-outline-primary">Login</button>
+		{{ form_end(form) }}
+
+	</div>
+
+{% endblock %}
